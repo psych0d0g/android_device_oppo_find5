@@ -25,30 +25,6 @@
     <dimen name="notification_ticker_width">280dp</dimen>
     <!-- The width of the notification panel window -->
     <dimen name="notification_panel_width">360dp</dimen>
-    <!-- The height of the notification panel title -->
-    <dimen name="notification_panel_title_height">100dp</dimen>
-    <!--  Amount of Margin to offset NavRing in Portrait Mode -->
-    <dimen name="navring_left_margin_port">-400dp</dimen>
-    <!--  Amount of Margin to offset NavRing in Landscape Mode -->
-    <dimen name="navring_left_margin_land">-700dp</dimen>
-    <!--  Height of NavRing in Tablet Mode Landscape -->
-    <dimen name="navring_height_tablet_landscape">325dp</dimen>
-    <!--  Height of NavRing in Tablet Mode Portrait -->
-    <dimen name="navring_height_tablet_portrait">300dp</dimen>
-    <!--  Radius of NavRing in Tablet Mode Landscape -->
-    <dimen name="navring_radius_tablet_landscape">250dp</dimen>
-    <!--  Radius of NavRing in Tablet Mode Landscape -->
-    <dimen name="navring_radius_tablet_portrait">200dp</dimen>
-
-    <!-- Scrollable toggles -->
-    <!-- The fixed width of traditional toggles -->
-    <dimen name="toggle_traditional_width">60dp</dimen>
-
-    <!-- The fixed height of traditional toggles -->
-    <dimen name="toggle_traditional_height">60dp</dimen>
-
-    <!-- The fixed height of traditional toggles -->
-    <dimen name="toggle_traditional_padding">2dp</dimen>
 
     <!-- opacity at which Notification icons will be drawn in the status bar -->
     <item type="dimen" name="status_bar_icon_drawing_alpha">100%</item>
