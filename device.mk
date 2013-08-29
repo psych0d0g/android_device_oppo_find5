@@ -271,9 +271,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # other apps
 PRODUCT_PACKAGES += \
     libncurses \
-    bash \
-    PinyinIME \
-	Find5Parts
+    bash
 	
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
