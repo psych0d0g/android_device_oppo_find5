@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.preference.CheckBoxPreference;
 import android.preference.TwoStatePreference;
 import android.preference.ListPreference;
@@ -13,6 +14,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 
 public class DeviceSettings extends PreferenceActivity  {
+    private static final String TAG = "DeviceSettings";
 
     public static final String KEY_S2WSWITCH = "s2w_switch";
     public static final String KEY_S2WSTROKE = "s2w_stroke";

@@ -15,5 +15,8 @@ public class Startup extends BroadcastReceiver {
         DoubleTap2WakeDuration.restore(context);
         DoubleTap2WakeBarrier.restore(context);
         VibratorStrengthPreference.restore(context);
+        
+        Intent intent = new Intent(context, DeviceService.class);
+        context.startService(intent);
     }
 }
