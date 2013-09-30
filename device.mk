@@ -276,7 +276,8 @@ PRODUCT_PACKAGES += \
     Torch \
 	CMTorch \
 	Trebuchet \
-	Find5Parts
+	Find5Parts \
+	pdroid-manager
 
 # selinux
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -6,6 +6,12 @@
   <remote name="maxwen"
            fetch="https://github.com/maxwen" />
 
+  <remote name="psycho"
+           fetch="https://github.com/psych0d0g/" />
+
+  <remote name="pdroid"
+           fetch="https://github.com/mateor/" />
+
   <remote name="cornedor"
            fetch="https://github.com/cornedor" />
 
@@ -18,10 +24,12 @@
                  
   <!-- Begin local repos --> 
   <remove-project path="build" name="AOKP/build"/>
-  <project path="build" name="build" remote="maxwen" revision="jb-mr2" >
+  <project path="build" name="build" remote="psycho" revision="jb-mr2" >
     <copyfile src="core/root.mk" dest="Makefile" />
   </project>
         
+  <project path="packages/app/pdroid-manager" name="pdroid-manager" remote="pdroid" revision="master"/>
+
   <remove-project path="packages/apps/ROMControl" name="AOKP/packages_apps_ROMControl" />
   <project path="packages/apps/ROMControl" name="packages_apps_ROMControl" remote="maxwen" revision="jb-mr2" />
 
@@ -29,16 +37,16 @@
   <project path="packages/apps/Settings" name="aokp_packages_apps_Settings" remote="maxwen" revision="jb-mr2" />
 
   <remove-project name="AOKP/frameworks_base" path="frameworks/base"/>
-  <project path="frameworks/base" name="frameworks_base" remote="maxwen" revision="jb-mr2" />
+  <project path="frameworks/base" name="frameworks_base" remote="psycho" revision="jb-mr2" />
     
   <remove-project path="vendor/aokp" name="AOKP/vendor_aokp" />
   <project path="vendor/aokp" name="vendor_aokp" remote="maxwen" revision="jb-mr2" />
 
   <remove-project path="packages/apps/Mms" name="AOKP/packages_apps_Mms" />
-  <project path="packages/apps/Mms" name="packages_apps_Mms" remote="maxwen" revision="jb-mr2" />
+  <project path="packages/apps/Mms" name="packages_apps_Mms" remote="psycho" revision="jb-mr2" />
 
   <remove-project path="frameworks/opt/telephony" name="CyanogenMod/android_frameworks_opt_telephony" />  
-  <project path="frameworks/opt/telephony" name="android_frameworks_opt_telephony" remote="maxwen" revision="cm-10.2" />
+  <project path="frameworks/opt/telephony" name="android_frameworks_opt_telephony" remote="psycho" revision="cm-10.2" />
   
   <remove-project path="packages/apps/DeskClock" name="AOKP/packages_apps_DeskClock"/>
   <project path="packages/apps/DeskClock" name="packages_apps_DeskClock" remote="maxwen" revision="jb-mr2" />
@@ -115,9 +123,14 @@
   <project path="packages/apps/Trebuchet" name="CyanogenMod/android_packages_apps_Trebuchet" remote="cm" revision="cm-10.2"/>
   <project path="packages/apps/CMFileManager" name="CyanogenMod/android_packages_apps_CMFileManager" remote="cm" revision="cm-10.2" />
   
+  <remove-project path="libcore" name="CyanogenMod/android_libcore" />
+  <project path="libcore" name="android_libcore" remote="psycho" revision="cm-10.2" />
+
   <!-- remove unneeded -->
   <remove-project path="packages/apps/Gallery" name="platform/packages/apps/Gallery" />
   <remove-project path="packages/apps/LegacyCamera" name="platform/packages/apps/LegacyCamera" />
+
+
   
 </manifest>
 
