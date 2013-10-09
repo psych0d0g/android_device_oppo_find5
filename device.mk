@@ -275,6 +275,7 @@ PRODUCT_PACKAGES += \
     LockClock \
     Torch \
 	CMTorch \
+	OmniTorch \
 	Trebuchet \
 	Find5Parts
 

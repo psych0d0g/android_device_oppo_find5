@@ -50,7 +50,7 @@
   <project path="packages/apps/Phone" name="packages_apps_Phone" remote="maxwen" revision="jb-mr2" />
 
   <remove-project path="packages/apps/Torch" name="AOKP/packages_apps_Torch" />
-  <project path="packages/apps/Torch" name="packages_apps_Torch" remote="maxwen" revision="jb-mr2"/>   
+  <project path="packages/apps/OmniTorch" name="android_packages_apps_OmniTorch" remote="maxwen" revision="android-4.3" />
 
   <remove-project path="packages/providers/ContactsProvider" name="AOKP/packages_providers_ContactsProvider" />
   <project path="packages/providers/ContactsProvider" name="packages_providers_ContactsProvider" remote="maxwen" revision="jb-mr2" />
