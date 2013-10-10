@@ -62,9 +62,11 @@
     	android:title="@string/category_suspend_cap">
 	    <com.cyanogenmod.settings.device.SuspendFreqCap
 	        android:key="suspend_cap_freq"
+	        android:summary=""
 	        android:title="@string/suspend_cap_freq" />
 	    <com.cyanogenmod.settings.device.SuspendCoreCap
 	        android:key="suspend_cap_core"
+	        android:summary=""
 	        android:title="@string/suspend_cap_core" />
 	</PreferenceCategory>	
 	

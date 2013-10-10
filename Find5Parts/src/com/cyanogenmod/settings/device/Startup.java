@@ -17,8 +17,5 @@ public class Startup extends BroadcastReceiver {
         VibratorStrengthPreference.restore(context);
         SuspendFreqCap.restore(context);
         SuspendCoreCap.restore(context);
-        
-        Intent intent = new Intent(context, DeviceService.class);
-        context.startService(intent);
     }
 }

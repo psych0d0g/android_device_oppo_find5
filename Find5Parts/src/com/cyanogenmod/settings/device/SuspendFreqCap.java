@@ -10,23 +10,40 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SuspendFreqCap extends ListPreference implements OnPreferenceChangeListener {
 
 	private static final String FILE = "/sys/kernel/cpufreq_cap/screen_off_max_freq";
 	private static final String FILE_ENABLE = "/sys/kernel/cpufreq_cap/screen_off_cap";
 	private static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-    
+
+    public SuspendFreqCap(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initList();
+    }
+
     public SuspendFreqCap(Context context) {
 		super(context);
-		
+		initList();
+	}
+
+    private void initList() {
         String availableFrequenciesLine = Utils.getFileValue(STEPS_PATH, "");
         if (availableFrequenciesLine != null) {
         	String[] frequencies = availableFrequenciesLine.split(" ");
 
         	List<String> entriesList = new ArrayList<String>();
         	entriesList.add("Disabled");
-        	entriesList.addAll(Arrays.asList(frequencies));
+        	for (int i = 0; i < frequencies.length; i++){
+        	    entriesList.add(new Integer(frequencies[i]).intValue()/1000 + " Mhz");
+        	}
+        	
         	CharSequence[] entries = entriesList.toArray(new CharSequence[entriesList.size()]);
 
         	List<String> entriyValuesList = new ArrayList<String>();
@@ -36,8 +53,9 @@ public class SuspendFreqCap extends ListPreference implements OnPreferenceChange
 
     		setEntries(entries);
     		setEntryValues(entryValues);
+		    setSummary(getCurrentSummary(getValue(getContext())));
         }
-	}
+    }
 
     public static boolean isSupported() {
         return Utils.fileWritable(FILE) && Utils.fileWritable(FILE_ENABLE);
@@ -64,18 +82,24 @@ public class SuspendFreqCap extends ListPreference implements OnPreferenceChange
         }
 
 		String value = getValue(context);
+		writeValue(value);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+		String value = (String)newValue;
+		writeValue(value);
+		setSummary(getCurrentSummary(value));
+        return true;
+    }
+
+    private static void writeValue(String value) {
 		if (value.equals("0")){
 			disableCap();
 		} else {
 			enableCap();
 			Utils.writeValue(FILE, value);
 		}
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
-        return true;
     }
 
     private static void disableCap(){
@@ -89,5 +113,15 @@ public class SuspendFreqCap extends ListPreference implements OnPreferenceChange
     private static boolean isDisabled(){
 		String value = Utils.getFileValue(FILE_ENABLE, "0");
 		return value.equals("0");
+    }
+
+    private CharSequence getCurrentSummary(String value){
+        List<CharSequence> entries = Arrays.asList(getEntryValues());
+        int idx = entries.indexOf(value);
+
+        if (idx != -1){
+            return getEntries()[idx];
+        }
+        return "";
     }
 }

@@ -33,8 +33,8 @@ public class DeviceSettings extends PreferenceActivity  {
     private ListPreference mDoubleTap2WakeDuration;
     private ListPreference mDoubleTap2WakeBarrier;
     private VibratorStrengthPreference mVibratorStrength;
-    private ListPreference mSuspendFreqCap;
-    private ListPreference mSuspendCoreCap;
+    private SuspendFreqCap mSuspendFreqCap;
+    private SuspendCoreCap mSuspendCoreCap;
             
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,15 +74,15 @@ public class DeviceSettings extends PreferenceActivity  {
 		mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
 
-        mSuspendFreqCap = (ListPreference) findPreference(KEY_SUSPEND_CAP_FREQ);
+        mSuspendFreqCap = (SuspendFreqCap) findPreference(KEY_SUSPEND_CAP_FREQ);
         mSuspendFreqCap.setEnabled(SuspendFreqCap.isSupported());
         mSuspendFreqCap.setValue(SuspendFreqCap.getValue(this));
-        mSuspendFreqCap.setOnPreferenceChangeListener(new SuspendFreqCap(this));
+        mSuspendFreqCap.setOnPreferenceChangeListener(mSuspendFreqCap);
 
-        mSuspendCoreCap = (ListPreference) findPreference(KEY_SUSPEND_CAP_CORE);
+        mSuspendCoreCap = (SuspendCoreCap) findPreference(KEY_SUSPEND_CAP_CORE);
         mSuspendCoreCap.setEnabled(SuspendCoreCap.isSupported());
         mSuspendCoreCap.setValue(SuspendCoreCap.getValue(this));
-        mSuspendCoreCap.setOnPreferenceChangeListener(new SuspendCoreCap(this));
+        mSuspendCoreCap.setOnPreferenceChangeListener(mSuspendCoreCap);
     }
 
     @Override

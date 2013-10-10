@@ -6,32 +6,52 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SuspendCoreCap extends ListPreference implements OnPreferenceChangeListener {
 
-	private static final String FILE = "/sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap";
-	private static final String FILE_ENABLE = "/sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus";
+	private static final String FILE = "/sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus";
+	private static final String FILE_ENABLE = "/sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap";
     private static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
-    
+
+    public SuspendCoreCap(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initList();
+    }
+        
     public SuspendCoreCap(Context context) {
 		super(context);
+        initList();
+	}
 
-		CharSequence[] entries = new CharSequence[4];
+    private void initList(){
+		CharSequence[] entries = new CharSequence[5];
 		entries[0]="Disabled";
 		int numCpus = getNumOfCpus();
-		for (int i = 1; i <numCpus; i++){
-			entries[i]= String.valueOf(i) + " core";
+		for (int i = 1; i <numCpus+1; i++){
+		    if (i == 1){
+			    entries[i]= String.valueOf(i) + " core";
+			} else {
+			    entries[i]= String.valueOf(i) + " cores";
+			}
 		}
 
-		CharSequence[] entryValues = new CharSequence[4];
-		for (int i = 1; i <numCpus; i++){
+		CharSequence[] entryValues = new CharSequence[5];
+		entryValues[0]="0";
+		for (int i = 1; i <numCpus+1; i++){
 			entryValues[i]= String.valueOf(i);
 		}
 		
 		setEntries(entries);
 		setEntryValues(entryValues);
-	}
-
+		setSummary(getCurrentSummary(getValue(getContext())));
+    }
+    
     public static boolean isSupported() {
         return Utils.fileWritable(FILE) && Utils.fileWritable(FILE_ENABLE);
     }
@@ -57,6 +77,18 @@ public class SuspendCoreCap extends ListPreference implements OnPreferenceChange
         }
 
 		String value = getValue(context);
+		writeValue(value);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+		String value = (String)newValue;
+		writeValue(value);
+		setSummary(getCurrentSummary(value));
+        return true;
+    }
+    
+    private static void writeValue(String value) {
 		if (value.equals("0")){
 			disableCap();
 		} else {
@@ -65,12 +97,6 @@ public class SuspendCoreCap extends ListPreference implements OnPreferenceChange
 		}
     }
 
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Utils.writeValue(FILE, (String) newValue);
-        return true;
-    }
-    
     private static void disableCap(){
         Utils.writeValue(FILE_ENABLE, "0");
     }
@@ -105,5 +131,15 @@ public class SuspendCoreCap extends ListPreference implements OnPreferenceChange
             }
         }
         return numOfCpu;
+    }
+    
+    private CharSequence getCurrentSummary(String value){
+        List<CharSequence> entries = Arrays.asList(getEntryValues());
+        int idx = entries.indexOf(value);
+
+        if (idx != -1){
+            return getEntries()[idx];
+        }
+        return "";
     }
 }
