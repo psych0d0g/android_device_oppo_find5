@@ -129,12 +129,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=131072
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.sf.lcd_density=480
+	ro.sf.lcd_density=460
 
 # qcom
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qc.sdk.audio.ssr=false \
-	ro.qc.sdk.audio.fluencetype=none \
+	ro.qc.sdk.audio.fluencetype=fluence \
 	ro.qc.sdk.sensors.gestures=false
 
 # Audio Configuration
@@ -275,6 +275,7 @@ PRODUCT_PACKAGES += \
     LockClock \
     Torch \
 	CMTorch \
+	OmniTorch \
 	Trebuchet \
 	Find5Parts
 
