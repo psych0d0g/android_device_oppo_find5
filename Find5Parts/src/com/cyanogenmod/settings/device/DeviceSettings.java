@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.preference.CheckBoxPreference;
 import android.preference.TwoStatePreference;
 import android.preference.ListPreference;
@@ -13,6 +14,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 
 public class DeviceSettings extends PreferenceActivity  {
+    private static final String TAG = "DeviceSettings";
 
     public static final String KEY_S2WSWITCH = "s2w_switch";
     public static final String KEY_S2WSTROKE = "s2w_stroke";
@@ -21,6 +23,8 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_DOUBLETAP2WAKE_DURATION = "s2w_double_tap_duration";
     public static final String KEY_DOUBLETAP2WAKE_BARRIER = "s2w_double_tap_barrier";
     public static final String KEY_VIBSTRENGTH = "vib_strength";
+    public static final String KEY_SUSPEND_CAP_FREQ = "suspend_cap_freq";
+    public static final String KEY_SUSPEND_CAP_CORE = "suspend_cap_core";
     
     private TwoStatePreference mS2WSwitch;
     private ListPreference mS2WStroke;
@@ -29,6 +33,8 @@ public class DeviceSettings extends PreferenceActivity  {
     private ListPreference mDoubleTap2WakeDuration;
     private ListPreference mDoubleTap2WakeBarrier;
     private VibratorStrengthPreference mVibratorStrength;
+    private SuspendFreqCap mSuspendFreqCap;
+    private SuspendCoreCap mSuspendCoreCap;
             
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,16 @@ public class DeviceSettings extends PreferenceActivity  {
 
 		mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
+
+        mSuspendFreqCap = (SuspendFreqCap) findPreference(KEY_SUSPEND_CAP_FREQ);
+        mSuspendFreqCap.setEnabled(SuspendFreqCap.isSupported());
+        mSuspendFreqCap.setValue(SuspendFreqCap.getValue(this));
+        mSuspendFreqCap.setOnPreferenceChangeListener(mSuspendFreqCap);
+
+        mSuspendCoreCap = (SuspendCoreCap) findPreference(KEY_SUSPEND_CAP_CORE);
+        mSuspendCoreCap.setEnabled(SuspendCoreCap.isSupported());
+        mSuspendCoreCap.setValue(SuspendCoreCap.getValue(this));
+        mSuspendCoreCap.setOnPreferenceChangeListener(mSuspendCoreCap);
     }
 
     @Override
