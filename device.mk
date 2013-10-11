@@ -275,8 +275,7 @@ PRODUCT_PACKAGES += \
     bash \
     CMFileManager \
     LockClock \
-    Torch \
-	CMTorch \
+	OmniTorch \
 	Trebuchet \
 	Find5Parts \
 	pdroid-manager
